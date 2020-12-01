@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDom from 'react-dom'
-
 import TodoList from './components/TodoList'
 import TodoForm from './components/TodoForm'
-
+import './components/Todo.css'
 
 
 const toDo = [
@@ -24,10 +22,15 @@ const toDo = [
       completed: false
     },
     {
-      task: 'Bake Cookies',
+      task: 'Develop a Million Dollar app',
       id: 1528817084420,
       completed: false
-    }
+    },
+    {
+      task: 'Stop Being Trash at Programming',
+      id: 1528817084710,
+      completed: false
+    }  
   
 ];
 
@@ -57,15 +60,27 @@ class App extends React.Component {
 
   handleAdd = task => {
     this.setState({
-      toDo: [...this.state.toDo, { task: task, id: Date.now(), completed:false}]
+      toDo: [...this.state.toDo, { task: task, id: Date.now(), completed:false }]
     })
+  }
+
+  handleCompleted = () => {
+    this.setState({
+      toDo: this.state.toDo.filter(toDo=>(!toDo.completed))
+    });
   }
   
   
   render() {
     return (
-      <div>
-        <h1>This is the Shit you NEED to get done.</h1>
+      <div className="App">
+        <div className="header">
+          <h1>This is the Shit you NEED to get done.</h1>
+          <h2>Stop Putting it Off!</h2>
+          <TodoForm handleAdd={this.handleAdd}/>
+        </div>
+      <TodoList handleCompleted={this.handleCompleted}
+      toDo={this.state.toDo} handleToggle={this.handleToggle}/>
       </div>
     );
   }
